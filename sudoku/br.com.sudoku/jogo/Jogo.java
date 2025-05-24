@@ -13,6 +13,16 @@ import java.util.Optional;
 import java.util.Stack;
 import java.util.Base64;
 
+
+/**
+ * Classe que representa um jogo de Sudoku.
+ *
+ * Esta classe gerencia o estado do jogo, incluindo o tabuleiro, dificuldade, tempo de início,
+ * pontuação e histórico de jogadas. Ela também fornece métodos para iniciar um novo jogo,
+ * fazer jogadas, desfazer jogadas, obter dicas, salvar e carregar jogos.
+ *
+ * @author danilo-faria
+ */
 public class Jogo {
     private Sudoku sudoku;
     private Dificuldade dificuldade;
@@ -20,6 +30,11 @@ public class Jogo {
     private int pontuacao;
     private Stack<Jogada> historicoJogadas;
 
+    /**
+     * Construtor da classe Jogo.
+     *
+     * @param dificuldade A dificuldade do jogo (FACIL, MEDIO, DIFICIL, EXTREMO).
+     */
     public Jogo(Dificuldade dificuldade) {
         this.sudoku = new Sudoku();
         this.dificuldade = dificuldade;
@@ -28,6 +43,9 @@ public class Jogo {
         this.pontuacao = 0;
     }
 
+    /**
+     * Inicia um novo jogo de Sudoku com a dificuldade especificada.
+     */
     public void novoJogo() {
         Gerador gerador = new Gerador();
         Tabuleiro tabuleiro = gerador.gerarTabuleiro(9, dificuldade);
@@ -38,6 +56,14 @@ public class Jogo {
         historicoJogadas.clear();
     }
 
+    /**
+     * Faz uma jogada no tabuleiro de Sudoku.
+     *
+     * @param linha A linha da célula onde a jogada será feita.
+     * @param coluna A coluna da célula onde a jogada será feita.
+     * @param valor O valor a ser inserido na célula.
+     * @return true se a jogada foi bem-sucedida, false caso contrário.
+     */
     public boolean fazerJogada(int linha, int coluna, Integer valor) {
         Tabuleiro tabuleiro = sudoku.getTabuleiro();
         if (!tabuleiro.isIndiceValido(linha, coluna)) {
@@ -60,6 +86,11 @@ public class Jogo {
         return false;
     }
 
+    /**
+     * Desfaz a última jogada feita no tabuleiro de Sudoku.
+     *
+     * @return true se a jogada foi desfeita com sucesso, false caso contrário.
+     */
     public boolean desfazerJogada() {
         if (historicoJogadas.isEmpty()) {
             return false;
@@ -76,6 +107,11 @@ public class Jogo {
         return true;
     }
 
+    /**
+     * Obtém uma dica para a próxima jogada.
+     *
+     * @return Uma posição sugerida para jogar, ou Optional.empty() se não houver dicas disponíveis.
+     */
     public Optional<Posicao> obterDica() {
         ResolvedorHelper resolvedor = new ResolvedorHelper();
         Tabuleiro tabuleiroResolvido = sudoku.getTabuleiro().copiar();
@@ -100,6 +136,11 @@ public class Jogo {
         return Optional.empty();
     }
 
+    /**
+     * Salva o estado atual do jogo em uma string codificada em Base64.
+     *
+     * @return A string codificada em Base64 representando o estado do jogo.
+     */
     public String salvarJogo() {
         StringBuilder sb = new StringBuilder();
 
@@ -128,6 +169,11 @@ public class Jogo {
         return Base64.getEncoder().encodeToString(sb.toString().getBytes());
     }
 
+    /**
+     * Carrega um jogo salvo a partir de uma string codificada em Base64.
+     *
+     * @param dadosJogoBase64 A string codificada em Base64 representando o estado do jogo.
+     */
     public void carregarJogo(String dadosJogoBase64) {
         try {
             String dados = new String(Base64.getDecoder().decode(dadosJogoBase64));
@@ -176,6 +222,11 @@ public class Jogo {
         }
     }
 
+    /**
+     * Obtém a dificuldade atual do jogo.
+     *
+     * @return A dificuldade atual do jogo.
+     */
     public int calcularPontuacao() {
         // chat GPT:
         // Fórmula para cálculo de pontuação baseada em:
@@ -216,6 +267,9 @@ public class Jogo {
         return Duration.between(tempoInicio, LocalDateTime.now());
     }
 
+    /**
+     * Reinicia o jogo, mantendo a mesma dificuldade, mas reiniciando o tabuleiro.
+     */
     public void reiniciar() {
         // manter a mesma dificuldade, mas reiniciar o tabuleiro
         Tabuleiro tabuleiro = sudoku.getTabuleiro();
@@ -236,8 +290,11 @@ public class Jogo {
         pontuacao = 0;
     }
 
-    // método auxiliar para converter um Tabuleiro em matriz de inteiros
+    /**
+     * Reinicia o jogo, mantendo a mesma dificuldade, mas reiniciando o tabuleiro.
+     */
     private int[][] converterTabuleiroParaMatriz(Tabuleiro tabuleiro) {
+        // método auxiliar para converter um Tabuleiro em matriz de inteiros
         int tamanho = tabuleiro.getTamanho();
         int[][] matriz = new int[tamanho][tamanho];
 

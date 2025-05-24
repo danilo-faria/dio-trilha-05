@@ -8,6 +8,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Classe responsável por validar as regras do Sudoku.
+ * <p>
+ * Esta classe contém métodos para validar linhas, colunas e quadrantes de um tabuleiro de Sudoku.
+ * Ela também verifica se o tabuleiro está completo e se há conflitos entre os valores.
+ */
 public class ValidadorHelper {
     private int tamanhoQuadrante;
 
@@ -27,6 +33,15 @@ public class ValidadorHelper {
         return validarCollection(tabuleiro.getQuadrante(linha, coluna), valor);
     }
 
+    /**
+     * Valida se a posição (linha, coluna) pode receber o valor.
+     *
+     * @param tabuleiro o tabuleiro a ser validado
+     * @param linha     a linha da célula
+     * @param coluna    a coluna da célula
+     * @param valor     o valor a ser inserido
+     * @return true se a posição é válida, false caso contrário
+     */
     public boolean validarPosicao(Tabuleiro tabuleiro, int linha, int coluna, Integer valor) {
         if (!tabuleiro.isIndiceValido(linha, coluna)) {
             return false;
@@ -42,6 +57,12 @@ public class ValidadorHelper {
                 validarQuadrante(tabuleiro, linha, coluna, valor);
     }
 
+    /**
+     * Valida se o tabuleiro está completo.
+     *
+     * @param tabuleiro o tabuleiro a ser validado
+     * @return true se o tabuleiro está completo, false caso contrário
+     */
     public boolean validarTabuleiroCompleto(Tabuleiro tabuleiro) {
         int tamanho = tabuleiro.getTamanho();
 
@@ -58,6 +79,12 @@ public class ValidadorHelper {
         return !temConflito(tabuleiro);
     }
 
+    /**
+     * Verifica se há conflitos no tabuleiro.
+     *
+     * @param tabuleiro o tabuleiro a ser verificado
+     * @return true se há conflitos, false caso contrário
+     */
     public boolean temConflito(Tabuleiro tabuleiro) {
         int tamanho = tabuleiro.getTamanho();
 
@@ -91,6 +118,13 @@ public class ValidadorHelper {
         return (posicao / tamanhoQuadrante) * tamanhoQuadrante;
     }
 
+    /**
+     * Valida se a coleção de células não contém o valor.
+     *
+     * @param celulas a coleção de células
+     * @param valor   o valor a ser validado
+     * @return true se a coleção não contém o valor, false caso contrário
+     */
     private boolean validarCollection(Collection<Celula> celulas, Integer valor) {
         // não pode existir o valor antes
         return celulas.stream()
@@ -99,6 +133,12 @@ public class ValidadorHelper {
                 .noneMatch(v -> v.get().equals(valor));
     }
 
+    /**
+     * Verifica se há valores duplicados na coleção de células.
+     *
+     * @param celulas a coleção de células
+     * @return true se há valores duplicados, false caso contrário
+     */
     private boolean temValoresDuplicados(Collection<Celula> celulas) {
         Set<Integer> valores = new HashSet<>();
         for (Celula celula : celulas) {

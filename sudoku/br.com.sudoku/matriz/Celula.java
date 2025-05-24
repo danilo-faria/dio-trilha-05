@@ -4,11 +4,21 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Classe que representa uma célula de um Sudoku.
+ * Cada célula pode conter um valor entre 1 e 9 ou estar vazia (null).
+ * A célula também pode ser fixa (não pode ser alterada) ou não fixa.
+ * Além disso, a célula mantém um conjunto de valores permitidos.
+ */
 public class Celula {
     private Integer valor;
     private boolean fixo;
     private Set<Integer> valoresPermitidos;
 
+    /**
+     * Construtor padrão da classe Celula.
+     * Inicializa a célula como vazia (null) e não fixa.
+     */
     public Celula() {
         this.valor = null;
         this.fixo = false;
@@ -16,6 +26,12 @@ public class Celula {
         inicializarValoresPermitidos();
     }
 
+    /**
+     * Construtor da classe Celula.
+     *
+     * @param valor O valor inicial da célula (pode ser null).
+     * @param fixo  Indica se a célula é fixa (não pode ser alterada).
+     */
     public Celula(Integer valor, boolean fixo) {
         this.valor = valor;
         this.fixo = fixo;
@@ -61,6 +77,10 @@ public class Celula {
         valoresPermitidos.clear();
     }
 
+    /**
+     * Inicializa os valores permitidos para a célula.
+     * Neste momento, todos os valores de 1 a 9 são permitidos.
+     */
     public void inicializarValoresPermitidos() {
         limparValoresPermitidos();
         // nesse momento todos os valores sao permitidos ainda

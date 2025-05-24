@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Classe responsável por resolver o tabuleiro de Sudoku.
+ * Utiliza o algoritmo de backtracking para encontrar soluções.
+ */
 public class ResolvedorHelper {
     private final ValidadorHelper validador;
 
@@ -27,6 +31,12 @@ public class ResolvedorHelper {
         return contarSolucoesRecursivo(tabuleiro.copiar(), 2);
     }
 
+    /**
+     * Encontra a próxima célula vazia no tabuleiro.
+     *
+     * @param tabuleiro O tabuleiro a ser verificado.
+     * @return A posição da próxima célula vazia, ou Optional.empty() se não houver células vazias.
+     */
     public Optional<Posicao> encontrarProximaCelulaVazia(Tabuleiro tabuleiro) {
         int tamanho = tabuleiro.getTamanho();
         for (int i = 0; i < tamanho; i++) {
@@ -39,6 +49,14 @@ public class ResolvedorHelper {
         return Optional.empty();
     }
 
+    /**
+     * Obtém os valores possíveis para uma célula específica no tabuleiro.
+     *
+     * @param tabuleiro O tabuleiro a ser verificado.
+     * @param linha     A linha da célula.
+     * @param coluna    A coluna da célula.
+     * @return Um conjunto de valores possíveis para a célula.
+     */
     public Set<Integer> obterValoresPossiveis(Tabuleiro tabuleiro, int linha, int coluna) {
         Set<Integer> valores = new HashSet<>();
         int tamanho = tabuleiro.getTamanho();
@@ -52,6 +70,12 @@ public class ResolvedorHelper {
         return valores;
     }
 
+    /**
+     * Verifica se o tabuleiro está completo.
+     *
+     * @param tabuleiro O tabuleiro a ser verificado.
+     * @return true se o tabuleiro estiver completo, false caso contrário.
+     */
     private boolean resolverBacktracking(Tabuleiro tabuleiro) {
         Optional<Posicao> posicaoVazia = encontrarProximaCelulaVazia(tabuleiro);
         if (posicaoVazia.isEmpty()) {
@@ -78,6 +102,12 @@ public class ResolvedorHelper {
         return false;
     }
 
+    /**
+     * Conta o número de soluções possíveis para o tabuleiro.
+     *
+     * @param tabuleiro O tabuleiro a ser verificado.
+     * @return O número de soluções possíveis.
+     */
     private int contarSolucoesRecursivo(Tabuleiro tabuleiro, int limite) {
         Optional<Posicao> posicaoVazia = encontrarProximaCelulaVazia(tabuleiro);
         if (posicaoVazia.isEmpty()) {

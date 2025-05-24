@@ -3,6 +3,12 @@ package matriz;
 import java.awt.Point;
 import java.util.Objects;
 
+/**
+ * Representa uma posição em um tabuleiro de Sudoku.
+ * A posição é representada por uma linha e uma coluna.
+ * A linha e a coluna são representadas por inteiros, onde 0 representa a primeira linha/coluna.
+ * A classe estende a classe Point para facilitar o uso de coordenadas.
+ */
 public class Posicao extends Point {
 
     public Posicao(int linha, int coluna) {

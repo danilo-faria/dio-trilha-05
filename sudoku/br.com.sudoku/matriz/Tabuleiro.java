@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que representa o tabuleiro do Sudoku.
+ * O tabuleiro é representado como uma matriz de células.
+ */
 public class Tabuleiro {
     private List<List<Celula>> grid;
     private int tamanho;
 
+    /**
+     * Construtor que inicializa o tabuleiro com o tamanho especificado.
+     *
+     * @param tamanho O tamanho do tabuleiro (deve ser um quadrado perfeito).
+     */
     public Tabuleiro(int tamanho) {
         this.tamanho = tamanho;
         this.grid = new ArrayList<>(tamanho);
@@ -22,6 +31,12 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Construtor que inicializa o tabuleiro com uma matriz de células existente.
+     *
+     * @param linha A linha da matriz
+     * @param coluna O número da coluna na matriz
+     */
     public Celula getCelula(int linha, int coluna) {
         if (isIndiceValido(linha, coluna)) {
             return grid.get(linha).get(coluna);
@@ -47,6 +62,9 @@ public class Tabuleiro {
         return grid;
     }
 
+    /**
+     * Limpa o tabuleiro, redefinindo todas as células para o estado inicial.
+     */
     public void limpar() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
@@ -55,6 +73,11 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Cria uma cópia do tabuleiro atual.
+     *
+     * @return Uma nova instância de Tabuleiro com os mesmos valores.
+     */
     public Tabuleiro copiar() {
         Tabuleiro copia = new Tabuleiro(tamanho);
         for (int i = 0; i < tamanho; i++) {
@@ -86,6 +109,13 @@ public class Tabuleiro {
         throw new IllegalArgumentException("Índice de coluna inválido: " + coluna);
     }
 
+    /**
+     * Retorna o quadrante correspondente a uma célula específica.
+     *
+     * @param linha A linha da célula
+     * @param coluna A coluna da célula
+     * @return Uma lista de células que pertencem ao quadrante
+     */
     public List<Celula> getQuadrante(int linha, int coluna) {
         if (!isIndiceValido(linha, coluna)) {
             throw new IllegalArgumentException("Índices inválidos: " + linha + ", " + coluna);

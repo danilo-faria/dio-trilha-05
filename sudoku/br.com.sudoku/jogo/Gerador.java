@@ -9,6 +9,12 @@ import matriz.Tabuleiro;
 
 import java.util.*;
 
+/**
+ * Classe responsável por gerar tabuleiros de Sudoku.
+ * Esta classe utiliza um algoritmo de backtracking para preencher o tabuleiro
+ * e remove números aleatoriamente, garantindo que o tabuleiro resultante tenha
+ * uma solução única.
+ */
 public class Gerador {
     private Random random;
     private ValidadorHelper validador;
@@ -19,6 +25,13 @@ public class Gerador {
         this.validador = new ValidadorHelper(9);
     }
 
+    /**
+     * Gera um tabuleiro de Sudoku com a dificuldade especificada.
+     *
+     * @param tamanho   O tamanho do tabuleiro (ex: 9 para um tabuleiro 9x9).
+     * @param dificuldade A dificuldade do jogo, que determina quantos números serão removidos.
+     * @return Um tabuleiro de Sudoku com a dificuldade especificada.
+     */
     public Tabuleiro gerarTabuleiro(int tamanho, Dificuldade dificuldade) {
         Tabuleiro tabuleiro = gerarTabuleiroCompleto(tamanho);
         int quantidadeRemover = calcularQuantidadeRemover(dificuldade);
@@ -32,6 +45,12 @@ public class Gerador {
         return tabuleiro;
     }
 
+    /**
+     * Remove números aleatórios do tabuleiro, garantindo que ele ainda tenha uma solução única.
+     *
+     * @param tabuleiro  O tabuleiro do qual os números serão removidos.
+     * @param quantidade A quantidade de números a serem removidos.
+     */
     public void removerNumeros(Tabuleiro tabuleiro, int quantidade) {
         int tamanho = tabuleiro.getTamanho();
         int total = tamanho * tamanho;
@@ -70,6 +89,12 @@ public class Gerador {
         return dificuldade.getNumerosParaRemover();
     }
 
+    /**
+     * Preenche o tabuleiro de Sudoku recursivamente.
+     *
+     * @param tabuleiro O tabuleiro a ser preenchido.
+     * @return true se o tabuleiro foi preenchido com sucesso, false caso contrário.
+     */
     private boolean preencherRecursivamente(Tabuleiro tabuleiro) {
         Optional<Posicao> posicaoVazia = encontrarProximaCelulaVazia(tabuleiro);
         if (posicaoVazia.isEmpty()) {
@@ -113,6 +138,12 @@ public class Gerador {
         return new Posicao(linha, coluna);
     }
 
+    /**
+     * Encontra a próxima célula vazia no tabuleiro.
+     *
+     * @param tabuleiro O tabuleiro a ser verificado.
+     * @return A posição da próxima célula vazia, ou Optional.empty() se não houver células vazias.
+     */
     private Optional<Posicao> encontrarProximaCelulaVazia(Tabuleiro tabuleiro) {
         int tamanho = tabuleiro.getTamanho();
         for (int i = 0; i < tamanho; i++) {
