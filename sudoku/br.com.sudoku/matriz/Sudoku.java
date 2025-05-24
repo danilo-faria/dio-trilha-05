@@ -1,11 +1,16 @@
 package matriz;
 
+import helpers.ResolvedorHelper;
+import helpers.ValidadorHelper;
+
 public class Sudoku {
     private Tabuleiro tabuleiro;
+    private ValidadorHelper validador;
 
     public Sudoku() {
         // criando um tabuleiro padrão 9x9
         this.tabuleiro = new Tabuleiro(9);
+        this.validador = new ValidadorHelper(9);
     }
 
     public void inicializarJogo() {
@@ -22,6 +27,41 @@ public class Sudoku {
                 }
             }
         }
+    }
+
+    public boolean validarJogada(int linha, int coluna, int valor) {
+        return validador.validarPosicao(tabuleiro, linha, coluna, valor);
+    }
+
+    public boolean fazerJogada(int linha, int coluna, int valor) {
+        if (!tabuleiro.isIndiceValido(linha, coluna)) {
+            return false;
+        }
+
+        Celula celula = tabuleiro.getCelula(linha, coluna);
+        if (celula.isFixo()) {
+            return false;
+        }
+
+        if (!validarJogada(linha, coluna, valor)) {
+            return false;
+        }
+
+        celula.setValor(valor);
+        return true;
+    }
+
+    public boolean isCompleto() {
+        return validador.validarTabuleiroCompleto(tabuleiro);
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public boolean resolver() {
+        ResolvedorHelper resolvedor = new ResolvedorHelper();
+        return resolvedor.resolver(tabuleiro);
     }
 
     @Override

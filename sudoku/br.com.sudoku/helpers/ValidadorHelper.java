@@ -54,28 +54,28 @@ public class ValidadorHelper {
             }
         }
 
-        // Verificar se não há conflitos
+        // checa conflitos
         return !temConflito(tabuleiro);
     }
 
     public boolean temConflito(Tabuleiro tabuleiro) {
         int tamanho = tabuleiro.getTamanho();
 
-        // Verificar linhas
+        // linhas
         for (int i = 0; i < tamanho; i++) {
             if (temValoresDuplicados(tabuleiro.getLinha(i))) {
                 return true;
             }
         }
 
-        // Verificar colunas
+        // colunas
         for (int j = 0; j < tamanho; j++) {
             if (temValoresDuplicados(tabuleiro.getColuna(j))) {
                 return true;
             }
         }
 
-        // Verificar quadrantes
+        // ou quadrantes
         for (int i = 0; i < tamanho; i += tamanhoQuadrante) {
             for (int j = 0; j < tamanho; j += tamanhoQuadrante) {
                 if (temValoresDuplicados(tabuleiro.getQuadrante(i, j))) {
@@ -92,7 +92,7 @@ public class ValidadorHelper {
     }
 
     private boolean validarCollection(Collection<Celula> celulas, Integer valor) {
-        // não pode existir o valor
+        // não pode existir o valor antes
         return celulas.stream()
                 .map(Celula::getValor)
                 .filter(Optional::isPresent)
