@@ -3,6 +3,7 @@
 
 Projeto de Sudoku em Java, com geração automática de tabuleiros, diferentes níveis de dificuldade, validação de jogadas, sistema de pontuação, dicas, histórico de jogadas (desfazer/refazer) e persistência do estado do jogo.
 
+
 ## Funcionalidades
 
 - Geração de tabuleiros válidos de Sudoku (9x9) com solução única
@@ -31,6 +32,10 @@ Projeto de Sudoku em Java, com geração automática de tabuleiros, diferentes n
 - `enums/`
     - `Dificuldade.java`: Enumeração dos níveis de dificuldade
 - `Main.java`: Exemplo de uso da API do jogo
+
+## Requisitos
+
+- Java 21
 
 ## Exemplo de Uso
 
@@ -228,3 +233,7 @@ classDiagram
     ValidadorSudoku --> Tabuleiro : valida
     Jogada --> Posicao : referencia
 ```
+
+### Referências:
+- [https://github.com/digitalinnovationone/exercicios-java-basico/blob/main/projetos/2%20-%20Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estruturas%20de%20Dados%20com%20Java.md](https://github.com/digitalinnovationone/exercicios-java-basico/blob/main/projetos/2%20-%20Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estruturas%20de%20Dados%20com%20Java.md)
+- [https://web.dio.me/lab/criando-um-jogo-do-sudoku/learning/2c8253e4-ad02-4b81-a121-be5fdb99de16?back=/track/bradesco-java-cloud-native](https://web.dio.me/lab/criando-um-jogo-do-sudoku/learning/2c8253e4-ad02-4b81-a121-be5fdb99de16?back=/track/bradesco-java-cloud-native)
